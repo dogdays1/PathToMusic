@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
 
   });
-
+  
   database.ref().limitToLast(5).on("child_added",function(childSnapshot) {
     console.log(childSnapshot.val());
 
@@ -82,6 +82,7 @@ $(document).ready(function() {
       console.log(keyword);
       $("#artist-input").val("");
       var key ="&countryCode=US&sort=date,asc&size=10&apikey=wzw1aN0lKG2c96suxa2buGqcNWjIodvq";
+
       var queryURL = url + keyword + key;
 
       $.ajax({
@@ -131,6 +132,7 @@ $(document).ready(function() {
                 tBody.append(tRow);
               }
             }
+
           }
         }).catch(err => {
           console.log(err);
@@ -196,6 +198,7 @@ $(document).ready(function() {
             var image = $("<img style='width: 300px'>").attr("src", imgURL);
             var imageOnScreen = $("<td>").html(image);
             image.addClass("artistImg");
+
             console.log(imgURL);
 
             if (convertedDate.isAfter(moment())) {
@@ -215,6 +218,7 @@ $(document).ready(function() {
                 tRow.append(titleTd, venue, date, time, ticketUrl, imageOnScreen);
                 tBody.append(tRow);
               }
+
             }
           }
         }).catch(err => {
