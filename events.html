@@ -7,31 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Path2Muzik Results</title>
 
-    <!-- Link to Moment.js -->
+  <!-- Link to Moment.js -->
   <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">
 
   <style>
-    body {
-      background: url(images/moon.png);
-    }
-
-    .jumbotron {
-      height: 180px;
-      margin-top: 0px;
-      padding-top: 10px;
-    }
-
     table {
       font-size: 18px;
     }
-    
+    .container {
+      margin-left: auto;
+      margin-right: auto;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Navbar -->
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-nav">
     <a class="navbar-brand" href="#">Path 2 Musik</a>
@@ -42,7 +36,7 @@
       </span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
           <a class="nav-link" href="index.html">Home
             <span class="sr-only">(current)</span>
@@ -58,53 +52,58 @@
       </ul>
     </div>
   </nav>
-  <div class="jumbotron">
-    <div class="row">
 
-      <div class="col-md-4">
+  <!-- Jumbotron with Search Form -->
+  <div class="container">
+    <div class="jumbotron">
 
-        <div class="form-group">
-          <label for="artist-input">Search Artist</label>
-          <input type="text" class="form-control" id="artist-input" placeholder="Artist">
-          <hr/>
-          <button type="submit" id="find-artist" class="btn btn-dark">Search</button>
+      <form>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="artist-input">Search Artist</label>
+              <input type="text" class="form-control" id="artist-input" placeholder="Artist">
+              <hr/>
+              <button type="submit" id="find-artist" class="btn btn-dark">Search Artist</button>
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="form-group">
+              <label for="artist-input">Search City</label>
+              <input type="text" class="form-control" id="city-input" placeholder="City">
+              <hr/>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="artist-input">Search State</label>
+
+              <input type="text" class="form-control" id="state-input" placeholder="Ex. NC">
+              <hr/>
+              <button type="submit" id="find-city" class="btn btn-dark">Search City/State</button>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="artist-input">Search City</label>
-          <input type="text" class="form-control" id="city-input" placeholder="City">
-          <hr/>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="artist-input">Search State</label>
-
-          <input type="text" class="form-control" id="state-input" placeholder="State">
-          <hr/>
-          <button type="submit" id="find-city" class="btn btn-dark">Search City/State</button>
-        </div>
-      </div>
-
-
+      </form>
 
     </div>
+    <br>
+    <br>
 
-  </div>
-  </div>
-  <br>
-  <br>
-  <div class="container">
-    <h4>You're getting closer to seeing a rocking show!</h4>
+    <!-- Table for Artist or City/State results to append -->
     <div class="row">
+
       <div class="col-md-8">
         <table class="table table-dark">
           <thead>
             <tr>
               <th scope="col">Artist</th>
+              <th scope="col">Venue</th>
               <th scope="col">Date</th>
+              <th scope="col">Time</th>
               <th scope="col">Tickets</th>
               <th scope="col">Poster</th>
             </tr>
@@ -113,33 +112,35 @@
           </tbody>
         </table>
       </div>
-      <div class="col-md-4">
-        <div class="card" style="width: 18rem;">
-          <!-- <img class="card-img-top" src="http://via.placeholder.com/100x100" alt="Card image cap"> -->
-          <div class="card-body">
-            <h5 class="card-title">Recent Searches</h5>
-            <hr/>
-            <div id="recent-searches"></div>
+      <div class="col-md-1">
+      </div>
+      <!-- Bootstrap card to append Firebase search results to -->
+      <div class="col-md-3">
+        <div class="row">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Trending Artists</h5>
+              <hr/>
+              <div id="recent-searches"></div>
+            </div>
           </div>
+        </div>
+        <br>
+
+        <!-- Table for youtube links related to search artist to append using YouTube Api -->
+        <div class="row">
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Listen to some Muzik!</th>
+              </tr>
+            </thead>
+            <tbody id="tbody2">
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <table class="table table-dark">
-          <thead>
-            <tr>
-              <th scope="col">YouTube Links</th>
-            </tr>
-          </thead>
-          <tbody id="tbody2">
-          </tbody>
-        </table>
-      </div>
-    </div>
   </div>
   <br>
   <br>
@@ -147,16 +148,24 @@
   <br>
   <br>
   <br>
-
-
   <footer class="py-5 bg-dark" id="footer">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Path 2 Musik 2018</p>
     </div>
   </footer>
+
+  <!-- Sript links for bootstrap, jquery, java files -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
   <script src="youtubeapi.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+
 
 </body>
 
