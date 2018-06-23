@@ -81,7 +81,9 @@ $(document).ready(function() {
       var url = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=";
       console.log(keyword);
       $("#artist-input").val("");
+      
       var key ="&countryCode=US&sort=date,asc&size=10&apikey=wzw1aN0lKG2c96suxa2buGqcNWjIodvq";
+
       var queryURL = url + keyword + key;
 
       $.ajax({
@@ -98,8 +100,6 @@ $(document).ready(function() {
             
             var venue = $("<td>").text(response._embedded.events[i]._embedded.venues[0].name);
             console.log(venue);
-
-
 
             var dateFormat = "YYYY/MM/DD";
             var dateToConvert = response._embedded.events[i].dates.start.localDate;
@@ -165,7 +165,7 @@ $(document).ready(function() {
       var country = "&countryCode=US&stateCode=";
       var key = "&sort=date,asc&apikey=wzw1aN0lKG2c96suxa2buGqcNWjIodvq";
       var queryURL = url + country + state + "&city=" + city + key;
-      
+
       console.log(queryURL);
       $.ajax({
         url: queryURL,
@@ -200,6 +200,7 @@ $(document).ready(function() {
             var image = $("<img style='width: 300px'>").attr("src", imgURL);
             var imageOnScreen = $("<td>").html(image);
             image.addClass("artistImg");
+
             console.log(imgURL);
 
             if (convertedDate.isAfter(moment())) {
@@ -215,11 +216,11 @@ $(document).ready(function() {
                 tBody.append(tRow);
               }else{
                 var date = $("<td>").text(convertDate);
-                
                 var time = $("<td>").text("TBD");
                 tRow.append(titleTd, venue, date, time, ticketUrl, imageOnScreen);
                 tBody.append(tRow);
               }
+
             }
           }
         }).catch(err => {
